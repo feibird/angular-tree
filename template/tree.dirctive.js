@@ -1,4 +1,4 @@
-app.directive('tree',function($resource,$http){
+app.directive('tree',function($http){
     return {
         restrict:'E',
         replace:true,
