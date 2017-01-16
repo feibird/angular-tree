@@ -1,0 +1,39 @@
+<div class="tree">
+    <div class="tree_group">
+        <div class="checkbox"><label><input type="checkbox">全选</label></div>
+    </div>
+    <div class="fun_group">
+        <a href="javascript:;" class="tree_btn">删除</a>
+    </div>
+    <ul class="tree_ul">
+        <li ng-repeat="item in list">
+            <i class="fa" ng-class="{false:'fa-plus',true:'fa-minus'}[item.status]" ng-click="item.status=!item.status"></i>
+            <input type="text" value="{{item.name}}" ng-class="{true:'tree_input',false:''}[item.isEdit]" ng-disabled="!item.isEdit">
+            <ul ng-show="item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
+            <div class="btn-group tree_btngroup">
+                <a href="javascript:;" class="tree_btn" ng-click="tree_edit(item)">{{item.isEdit==true ? '保存':'修改'}}</a>
+                <a href="javascript:;" class="tree_btn" ng-click="item.add=true;item.status=true">添加子类</a>
+                <a href="javascript:;" class="tree_btn" ng-click="del(item)">删除</a>
+            </div>
+        </li>
+    </ul>
+    <script id="tree_template" type="text/ng-template">
+        <li ng-if="item.add">
+            <i class="fa fa-file-text"></i>
+            <input type="text" class="tree_input" ng-model='newChildren' placeholder="请输入你要增加子类名称" >
+            <div class="btn-group tree_btngroup">
+                <a href="javascript:;" class="tree_btn" ng-click="addchildren(item,newChildren)">添加</a>
+                <a href="javascript:;" class="tree_btn" ng-click="">取消</a>
+            </div>
+        </li>
+        <li ng-repeat="item in children">
+            <i class="fa" ng-class="{false:'fa-plus',true:'fa-minus'}[item.status]" ng-click="item.status=!item.status"></i>
+            <input type="text" value="{{item.name}}" ng-class="{true:'tree_input',false:''}[item.isEdit]" ng-disabled="!item.isEdit">
+            <ul ng-if="item.children.length>0 && item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
+            <div class="btn-group tree_btngroup">
+                <a href="javascript:;" class="tree_btn" ng-click="tree_edit(item)">{{item.isEdit==true ? '保存':'修改'}}</a>
+                <a href="javascript:;" class="tree_btn">删除</a>
+            </div>
+        </li>
+    </script>
+</div>

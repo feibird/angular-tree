@@ -1,0 +1,7 @@
+./idea/
+.DS_store
+.env
+.project
+/.idea/*
+/node_modules/
+.gitigonre

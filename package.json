@@ -1,0 +1,31 @@
+{
+  "name": "cw19931024",
+  "version": "1.0.0",
+  "description": "模块安装环境",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "bootstrap": "^3.3.6",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.10.2"
+  },
+  "devDependencies": {
+    "gulp-nodemon": "^2.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cw19931024/DirectiveDemo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cw19931024/DirectiveDemo/issues"
+  },
+  "homepage": "https://github.com/cw19931024/DirectiveDemo#readme"
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    var list;
+    $.ajax({
+        type:'get',
+        url:'tree.json',
+        async:false,
+        dataType:'json',
+        success:function(data){
+            console.log(data)
+            list = render(data);
+        }
+    })
+    
+    function render(data){
+        data.forEach(function(i){
+            i.status=false;
+            if(i.children && i.children.length){
+                render(i.children)
+            }
+        })
+        return data;
+    }
+
+    console.log(list)
+</script>
+
+</html>
