@@ -1,19 +1,36 @@
 <div class="tree">
-    <div class="tree_group">
-        <div class="checkbox"><label><input type="checkbox">全选</label></div>
+    <div class="group">
+        <div class="tree_group">
+            <div class="checkbox"><label><input type="checkbox"  ng-model="is" ng-change="All(is)">全选</label></div>
+            <a href="javascript:;" class="tree_btn" ng-click="Allstatus(true)">展开</a>
+            <a href="javascript:;" class="tree_btn" ng-click="Allstatus(false)">收起</a>
+            <a href="javascript:;" class="tree_btn" ng-click="addTop=true;">添加顶级节点</a>
+        </div>
+        <div class="fun_group" ng-show="is">
+            操作:
+            <a href="javascript:;" class="tree_btn">删除</a>
+            <a href="javascript:;" class="tree_btn">编辑</a>
+            <a href="javascript:;" class="tree_btn">添加子级</a>
+        </div>
     </div>
-    <div class="fun_group">
-        <a href="javascript:;" class="tree_btn">删除</a>
+    <div ng-show="addTop" class="addDiv">
+        <i class="fa fa-file-text"></i>
+        <input type="text" class="tree_input" ng-model='newTop' placeholder="请输入节点名称" >
+        <div class="btn-group tree_btngroup">
+            <a href="javascript:;" class="tree_btn" ng-click="addchildren(0,newTop)">添加</a>
+            <a href="javascript:;" class="tree_btn" ng-click="addTop=false;">取消</a>
+        </div>
     </div>
     <ul class="tree_ul">
         <li ng-repeat="item in list">
+            <div class="checkbox"><label><input type="checkbox" ng-model="item.ischeckbox">{{($index+1)>9?($index+1):"0"+($index+1)}}</label></div>
             <i class="fa" ng-class="{false:'fa-plus',true:'fa-minus'}[item.status]" ng-click="item.status=!item.status"></i>
             <input type="text" value="{{item.name}}" ng-class="{true:'tree_input',false:''}[item.isEdit]" ng-disabled="!item.isEdit">
             <ul ng-show="item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
             <div class="btn-group tree_btngroup">
                 <a href="javascript:;" class="tree_btn" ng-click="tree_edit(item)">{{item.isEdit==true ? '保存':'修改'}}</a>
+                <a href="javascript:;" class="tree_btn" ng-click="del(item.id)">删除</a>
                 <a href="javascript:;" class="tree_btn" ng-click="item.add=true;item.status=true">添加子类</a>
-                <a href="javascript:;" class="tree_btn" ng-click="del(item)">删除</a>
             </div>
         </li>
     </ul>
@@ -23,16 +40,18 @@
             <input type="text" class="tree_input" ng-model='newChildren' placeholder="请输入你要增加子类名称" >
             <div class="btn-group tree_btngroup">
                 <a href="javascript:;" class="tree_btn" ng-click="addchildren(item,newChildren)">添加</a>
-                <a href="javascript:;" class="tree_btn" ng-click="">取消</a>
+                <a href="javascript:;" class="tree_btn" ng-click="item.add=false;">取消</a>
             </div>
         </li>
         <li ng-repeat="item in children">
+            <div class="checkbox"><label><input type="checkbox" ng-model='item.ischeckbox'>{{($index+1)>9?($index+1):"0"+($index+1)}}</label></div>
             <i class="fa" ng-class="{false:'fa-plus',true:'fa-minus'}[item.status]" ng-click="item.status=!item.status"></i>
             <input type="text" value="{{item.name}}" ng-class="{true:'tree_input',false:''}[item.isEdit]" ng-disabled="!item.isEdit">
-            <ul ng-if="item.children.length>0 && item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
+            <ul ng-if="item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
             <div class="btn-group tree_btngroup">
                 <a href="javascript:;" class="tree_btn" ng-click="tree_edit(item)">{{item.isEdit==true ? '保存':'修改'}}</a>
-                <a href="javascript:;" class="tree_btn">删除</a>
+                <a href="javascript:;" class="tree_btn" ng-click="del(item.id)">删除</a>
+                <a href="javascript:;" class="tree_btn" ng-init="item=item;item.add=true;" ng-click='item.status=true' >添加子类</a>
             </div>
         </li>
     </script>

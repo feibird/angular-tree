@@ -1,0 +1,23 @@
+[
+    {"name":"虹桥一组","id":1,"children":[
+        {"name":"虹桥一队1","id":10,"children":[]},
+        {"name":"虹桥一队2","id":11,"children":[]},
+        {"name":"虹桥一队3","id":12,"children":[]},
+        {"name":"虹桥一队4","id":13,"children":[]},
+        {"name":"虹桥一队5","id":14,"children":[]}
+    ]},
+    {"name":"虹桥二组","id":2,"children":[
+        {"name":"虹桥二队1","id":20,"children":[]},
+        {"name":"虹桥二队2","id":21,"children":[]},
+        {"name":"虹桥二队3","id":22,"children":[]},
+        {"name":"虹桥二队4","id":23,"children":[]},
+        {"name":"虹桥二队5","id":34,"children":[]}
+    ]},
+    {"name":"虹桥三组","id":3,"children":[
+        {"name":"虹桥三队1","id":30,"children":[]},
+        {"name":"虹桥三队2","id":31,"children":[]},
+        {"name":"虹桥三队3","id":32,"children":[]},
+        {"name":"虹桥三队4","id":43,"children":[]},
+        {"name":"虹桥三队5","id":54,"children":[]}
+    ]}
+]
