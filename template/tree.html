@@ -51,7 +51,7 @@
             <div class="btn-group tree_btngroup">
                 <a href="javascript:;" class="tree_btn" ng-click="tree_edit(item)">{{item.isEdit==true ? '保存':'修改'}}</a>
                 <a href="javascript:;" class="tree_btn" ng-click="del(item.id)">删除</a>
-                <a href="javascript:;" class="tree_btn" ng-init="item=item;item.add=true;" ng-click='item.status=true' >添加子类</a>
+                <a href="javascript:;" class="tree_btn" ng-click='item.status=true;item=item;item.add=true;' >添加子类</a>
             </div>
         </li>
     </script>

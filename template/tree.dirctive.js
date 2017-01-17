@@ -7,7 +7,7 @@ app.directive('tree', function ($http) {
         },
         templateUrl: "template/tree.html",
         link: function (scope, elem, attr) {
-            $http.get('./tree1.json').then(function (res) {
+            $http.get('./tree.json').then(function (res) {
                 scope.list = rendar(res.data);
                 console.log(scope.list)
             })
@@ -42,7 +42,7 @@ app.directive('tree', function ($http) {
                 data.forEach(function(e){
                     e[prs]=is;
                     if(e.children){
-                        All(e.children,is)
+                        All(e.children,is,prs)
                     }
                 })
             }
@@ -116,6 +116,7 @@ app.directive('tree', function ($http) {
                     i.ischeckbox = false;
                     if (i.children && i.children.length > 0) {
                         i.status = false;
+                        i.add=false;
                         rendar(i.children);
                     }
                 })
