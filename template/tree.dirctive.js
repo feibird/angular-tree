@@ -7,7 +7,7 @@ app.directive('tree', function ($http) {
         },
         templateUrl: "template/tree.html",
         link: function (scope, elem, attr) {
-            $http.get('./tree1.json').then(function (res) {
+            $http.get('./tree.json').then(function (res) {
                 scope.list = rendar(res.data);
                 console.log(scope.list)
             })

@@ -18,3 +18,26 @@
 `http://localhost:1024`
 
 ##有时间会后续更新
+
+#### 1.18更新
+![sas.jpgs](image/sasas.jpg)
+![sas.jpgs](image/sas.jpg)
+![sas.jpgs](image/sas1.jpg)
+![sas.jpgs](image/update.jpg)
+
+1:无限树节点
+2:展开，收起
+3:添加子和顶节点
+4:修改，删除节点
+
+#### 模拟json格式为:
+```
+[
+    {"name":"水果","id":10,"children":[
+        {"name":"水果1","id":20,"children":[
+          ……  
+        ]}
+    ]}
+]
+```
+后期会做参数处理、
