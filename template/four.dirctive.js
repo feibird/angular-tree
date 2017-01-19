@@ -1,11 +1,14 @@
-app.directive("setFocus", function () {
+app.directive("focus", function () {
     return {
         scope: {
-            ngModel: "="
+            ngWatch: "="
         },
         link: function (scope, element, attrs) {
-            scope.$watch("ngModel", function (n, o) {
-                element.focus();
+            scope.$watch("ngWatch", function (n, o) {
+                console.log(scope.ngWatch)
+                if(scope.ngWatch){
+                    element[0].focus();
+                }
             })
         }
     }

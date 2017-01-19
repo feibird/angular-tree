@@ -1,9 +1,9 @@
 <div class="tree">
     <div class="group">
         <div class="tree_group">
-            <div class="checkbox"><label><input type="checkbox"  ng-model="is" ng-change="All(is)">全选</label></div>
-            <a href="javascript:;" class="tree_btn" ng-click="Allstatus(true)">展开</a>
-            <a href="javascript:;" class="tree_btn" ng-click="Allstatus(false)">收起</a>
+            <div class="checkbox"  ng-if="treeParam.isCheckbox" ><label><input type="checkbox"  ng-model="is" ng-change="All(is)">全选</label></div>
+            <a href="javascript:;" class="tree_btn" ng-if="treeParam.isCheckbox" ng-click="Allstatus(true)">展开</a>
+            <a href="javascript:;" class="tree_btn" ng-if="treeParam.isCheckbox" ng-click="Allstatus(false)">收起</a>
             <a href="javascript:;" class="tree_btn" ng-click="addTop=true;">添加顶级节点</a>
         </div>
         <div class="fun_group" ng-show="is">
@@ -15,7 +15,7 @@
     </div>
     <div ng-show="addTop" class="addDiv">
         <i class="fa fa-file-text"></i>
-        <input type="text" class="tree_input" ng-model='newTop' placeholder="请输入节点名称" >
+        <input type="text" focus ng-watch="addTop" class="tree_input" ng-model='newTop' placeholder="请输入节点名称" >
         <div class="btn-group tree_btngroup">
             <a href="javascript:;" class="tree_btn" ng-click="addchildren(0,newTop)">添加</a>
             <a href="javascript:;" class="tree_btn" ng-click="addTop=false;">取消</a>
@@ -23,10 +23,10 @@
     </div>
     <ul class="tree_ul">
         <li ng-repeat="item in list">
-            <div class="checkbox"><label><input type="checkbox" ng-model="item.ischeckbox">{{($index+1)>9?($index+1):"0"+($index+1)}}</label></div>
+            <div class="checkbox"  ng-if="treeParam.isCheckbox" ><label><input type="checkbox" ng-model="item.ischeckbox">{{($index+1)>9?($index+1):"0"+($index+1)}}</label></div>
             <i class="fa" ng-class="{false:'fa-plus',true:'fa-minus'}[item.status]" ng-click="item.status=!item.status"></i>
             <input type="text" value="{{item.name}}" ng-class="{true:'tree_input',false:''}[item.isEdit]" ng-disabled="!item.isEdit">
-            <ul ng-show="item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
+            <ul ng-show="item.status" data-ng-if="item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
             <div class="btn-group tree_btngroup">
                 <a href="javascript:;" class="tree_btn" ng-click="tree_edit(item)">{{item.isEdit==true ? '保存':'修改'}}</a>
                 <a href="javascript:;" class="tree_btn" ng-click="del(item.id)">删除</a>
@@ -37,17 +37,17 @@
     <script id="tree_template" type="text/ng-template">
         <li ng-if="item.add">
             <i class="fa fa-file-text"></i>
-            <input type="text" class="tree_input" ng-model='newChildren' placeholder="请输入你要增加子类名称" >
+            <input type="text" focus ng-watch="item.add" class="tree_input" ng-model='newChildren' placeholder="请输入你要增加子类名称" >
             <div class="btn-group tree_btngroup">
                 <a href="javascript:;" class="tree_btn" ng-click="addchildren(item,newChildren)">添加</a>
-                <a href="javascript:;" class="tree_btn" ng-click="item.add=false;">取消</a>
+                <a href="javascript:;" class="tree_btn" ng-click="item.add=false;item.status=null">取消</a>
             </div>
         </li>
         <li ng-repeat="item in children">
-            <div class="checkbox"><label><input type="checkbox" ng-model='item.ischeckbox'>{{($index+1)>9?($index+1):"0"+($index+1)}}</label></div>
+            <div class="checkbox"  ng-if="treeParam.isCheckbox" ><label><input type="checkbox" ng-model='item.ischeckbox'>{{($index+1)>9?($index+1):"0"+($index+1)}}</label></div>
             <i class="fa" ng-class="{false:'fa-plus',true:'fa-minus'}[item.status]" ng-click="item.status=!item.status"></i>
-            <input type="text" value="{{item.name}}" ng-class="{true:'tree_input',false:''}[item.isEdit]" ng-disabled="!item.isEdit">
-            <ul ng-if="item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
+            <input type="text"  value="{{item.name}}" ng-class="{true:'tree_input',false:''}[item.isEdit]" ng-disabled="!item.isEdit">
+            <ul ng-if="item.status" data-ng-if="item.status" ng-include="'tree_template'" ng-init="children = item.children"></ul>
             <div class="btn-group tree_btngroup">
                 <a href="javascript:;" class="tree_btn" ng-click="tree_edit(item)">{{item.isEdit==true ? '保存':'修改'}}</a>
                 <a href="javascript:;" class="tree_btn" ng-click="del(item.id)">删除</a>

@@ -1,39 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
 
-<body>
-
+<body ng-controller="Ctrl">
+    <div ng-repeat="item in list">
+        <button ng-click="item.status=!item.status">获取焦点</button>
+        <input type="text" watch ng-watch="item.status">
+    </div>
 </body>
-<script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<script src="lib/angular.js"></script>
+<!--<script src="template/ngWatch.dirctive.js"></script>-->
 <script>
-    var list;
-    $.ajax({
-        type:'get',
-        url:'tree.json',
-        async:false,
-        dataType:'json',
-        success:function(data){
-            console.log(data)
-            list = render(data);
+    var app = angular.module('app',[]).controller('Ctrl',function($scope){
+        $scope.item=false;
+        $scope.list = [
+            {name:"test",status:false},
+            {name:"test1",status:false},
+            {name:"test2",status:false},
+        ]
+        $scope.is = function(){
+            $scope.item=!$scope.item;
         }
     })
-    
-    function render(data){
-        data.forEach(function(i){
-            i.status=false;
-            if(i.children && i.children.length){
-                render(i.children)
+    app.directive('watch',function(){
+        return {
+            scope:{
+                ngWatch:"="
+            },
+            link:function(scope,element,attrs){
+                console.log(element)
+                scope.$watch('ngWatch',function(a,b){
+                    if(scope.ngWatch){
+                        element[0].focus();
+                    }
+                })
             }
-        })
-        return data;
-    }
-
-    console.log(list)
+        }
+    })
 </script>
-
 </html>

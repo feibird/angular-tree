@@ -3,13 +3,12 @@ app.directive('tree', function ($http) {
         restrict: 'E',
         replace: true,
         scope: {
-            param: "="
+            treeParam: "="
         },
         templateUrl: "template/tree.html",
         link: function (scope, elem, attr) {
-            $http.get('./tree.json').then(function (res) {
+            $http.get('./tree1.json').then(function (res) {
                 scope.list = rendar(res.data);
-                console.log(scope.list)
             })
             //编辑修改操作
             scope.tree_edit = function (data) {
@@ -20,7 +19,6 @@ app.directive('tree', function ($http) {
             }
             //删除操作
             scope.del = function (id) {
-                console.log(id)
                 eachDel(scope.list, id);
             }
 
@@ -54,7 +52,8 @@ app.directive('tree', function ($http) {
                 }
             }
 
-            function eachDel(data, delId) {
+            function eachDel(data, delId,prent) {
+                console.log(delId)
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].id == delId) {
                         if (data[i].children.length > 0) {
@@ -65,12 +64,15 @@ app.directive('tree', function ($http) {
                             }
                         } else {
                             data.splice(i, 1);
+                            if(!prent.children.length>0){
+                                prent.status=null;
+                            }
                             alert("删除成功！");
                             return false;
                         }
                     } else {
                         if (data[i].children.length > 0) {
-                            eachDel(data[i].children, delId);
+                            eachDel(data[i].children, delId,data[i]);
                         }
                     }
                 }
@@ -79,12 +81,11 @@ app.directive('tree', function ($http) {
 
             //添加子类操作
             scope.addchildren = function (data,name) {
-                console.log(data);
                 if (data == 0) {
                     if (name.length > 0) {
                         var obj = new Object();
                         obj.name = name;
-                        obj.id = 1;
+                        obj.id = parseInt(Math.random()*1000);
                         obj.children = []
                         scope.list.push(obj)
                         scope.newTop="";
@@ -95,7 +96,7 @@ app.directive('tree', function ($http) {
                     if (name.length > 0) {
                         var obj = new Object();
                         obj.name = name;
-                        obj.id = 1;
+                        obj.id = parseInt(Math.random()*1000);
                         obj.children = []
                         data.children.push(obj)
                         data.add = false;
